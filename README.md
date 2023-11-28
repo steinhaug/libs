@@ -1,17 +1,18 @@
 # steinhaug_libs
 
-Core class for page handling.
+Core class for serving content to browser, uses GZIP compression.
 
 ## VERSION
 
+v1.0.1 - PS4 file structure in place, added missing functions
 v1.0.0 - Initial state
 
 ## USAGE
 
 **Syntax:**
 
-    $swlib->start_ob(false,true,$GLOBALS['Content-Encoding']);  
-    session_start();
+    $swlib = new steinhaug_libs;
+    $swlib->start_ob(false, true, 'gzip');
     // page
     $swlib->end_ob('text/html');  
 
@@ -21,7 +22,7 @@ Install the [composer package](https://packagist.org/packages/steinhaug/libs):
 
     > composer require steinhaug/libs
 
-Or download the [latest release](https://github.com/steinhaug/libs/releases/latest) and include sqlbuddy.php.
+Or download the [latest release](https://github.com/steinhaug/libs/releases/latest) and include src/steinhaug/libs.php.
 
 ## AUTHORS
 
