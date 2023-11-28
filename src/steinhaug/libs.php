@@ -4,20 +4,6 @@
 /* Some Steinhaug libraries to go */
 /*                                */
 
-if(!function_exists('ob_flush')){ function ob_flush() { return true; }} // Patch for DG 80.64.202.13 server
-if(!function_exists('same_length')){ function same_length($a,$b,$s=' '){ if(strlen((string) $a) == strlen((string) $b)) return array($a,$b); if(strlen((string) $a) > strlen((string) $b)){ while(strlen((string) $a) > strlen((string) $b)){ $b .= $s; } return array($a,$b); } else { while(strlen((string) $a) < strlen((string) $b)){ $a .= $s; } return array($a,$b);} return array($a,$b);}}
-if(!function_exists('getallheaders')){
-    function getallheaders() {
-        $headers = [];
-            foreach ($_SERVER as $name => $value) {
-                if (str_starts_with($name, 'HTTP_')){
-                    $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
-                }
-            }
-        return $headers;
-    }
-}
-
 class steinhaug_libs
 {
   var $env = array(
@@ -85,6 +71,10 @@ class steinhaug_libs
   //
   function start_ob($headers_use_expires=false,$ignore_session_cache_headers=true,$gzip='auto'){
     global $_SERVER;
+
+    if(empty($gzip))
+        die('Missing $gzip parameter, empty.');
+
     if(((string) $gzip=='auto') AND isset($GLOBALS['Content-Encoding']))
       $gzip = $GLOBALS['Content-Encoding']; // none with IE, use e-tag instead is better.
     if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && strstr($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') && extension_loaded('zlib')){
@@ -251,29 +241,6 @@ class steinhaug_libs
     return $css;
   }
 
-  function prepareHTMLoutput($html,$options = array(NULL),$swECMS_font_sice_css_fix=false){
-    // Options should be fed when used
-    require_once EWS_ROOT_PATH . '/ecms.lib/index.HTMLSax3.cleanup.php';
-    $CleanWordAndHTML = new CleanWordAndHTML();
-    if(isset($options['post-removespan']) AND !$options['post-removespan'])      $options['post-removespan']      = true;  // Removes empty SPAN
-    if(isset($options['post-removefont']) AND !$options['post-removefont'])      $options['post-removefont']      = true;  // Removes empty FONT
-    if(isset($options['post-removefont-face']) AND !$options['post-removefont-face']) $options['post-removefont-face'] = false; // Removes FONT tags with face
-    if(isset($options['post-removefont-size']) AND !$options['post-removefont-size']) $options['post-removefont-size'] = false; // Removes FONT tags with size
-    if(isset($options['post-remove-orphans']) AND !$options['post-remove-orphans'])  $options['post-remove-orphans']  = true;  // Removes empty orphans
-    if(isset($options['post-fixentities']) AND !$options['post-fixentities'])     $options['post-fixentities']     = true;  // Correct some typical MAC characters
-    unset($CleanWordAndHTML->deleteTagAttributes['font']);
-    $CleanWordAndHTML->deleteTagsIfNoAttribs = array('font','span');
-    $CleanWordAndHTML->swECMS_font_sice_css_fix = $swECMS_font_sice_css_fix; // Correct font sizes
-    $html = $CleanWordAndHTML->parseCMS($html,$options);
-    if(isset($options['run-twice']) AND $options['run-twice']){
-      $CleanWordAndHTML = new CleanWordAndHTML();
-      unset($CleanWordAndHTML->deleteTagAttributes['font']);
-      $CleanWordAndHTML->deleteTagsIfNoAttribs = array('font','span');
-      $html = $CleanWordAndHTML->parseCMS($html,$options);
-    }
-    unset($CleanWordAndHTML);
-    return $html;
-  }
   function strip_empty_param($param){
     $params = explode('&amp;',$param);
     $count = count($params);
