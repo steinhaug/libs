@@ -3,7 +3,22 @@
 /*             START              */
 /* Some Steinhaug libraries to go */
 /*                                */
-class steinhaug_libs_v1
+
+if(!function_exists('ob_flush')){ function ob_flush() { return true; }} // Patch for DG 80.64.202.13 server
+if(!function_exists('same_length')){ function same_length($a,$b,$s=' '){ if(strlen((string) $a) == strlen((string) $b)) return array($a,$b); if(strlen((string) $a) > strlen((string) $b)){ while(strlen((string) $a) > strlen((string) $b)){ $b .= $s; } return array($a,$b); } else { while(strlen((string) $a) < strlen((string) $b)){ $a .= $s; } return array($a,$b);} return array($a,$b);}}
+if(!function_exists('getallheaders')){
+    function getallheaders() {
+        $headers = [];
+            foreach ($_SERVER as $name => $value) {
+                if (str_starts_with($name, 'HTTP_')){
+                    $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                }
+            }
+        return $headers;
+    }
+}
+
+class steinhaug_libs
 {
   var $env = array(
     'version' => 1

@@ -19,11 +19,11 @@
     "require-dev": {
     },
     "autoload": {
-        "psr-0": {"steinhaug_libs": ""}
+        "psr-0": {
+            "steinhaug_libs": "src/"
+        }
     },
     "autoload-dev": {
-        "psr-0": {
-            "teststeinhaug_libs": "test/"
-        }
+        "phpunit/phpunit": "^8"
     }
 }
