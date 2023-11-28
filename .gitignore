@@ -1,0 +1,4 @@
+composer.lock
+mysqli_credentials.inc
+logs/
+vendor/

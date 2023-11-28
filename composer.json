@@ -1,0 +1,29 @@
+{
+    "name": "steinhaug/libs",
+    "description": "Page handling",
+    "keywords": ["gzip","buffer"],
+    "homepage": "https://kim.steinhaug.com",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kim Steinhaug",
+            "email": "kim@steinhaug.com",
+            "homepage": "http://kim.steinhaug.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-0": {"steinhaug_libs": ""}
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "teststeinhaug_libs": "test/"
+        }
+    }
+}
