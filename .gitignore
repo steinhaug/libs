@@ -2,3 +2,4 @@ composer.lock
 mysqli_credentials.inc
 logs/
 vendor/
+public_html/cache/**.*
