@@ -1,0 +1,15 @@
+header {
+    width: 100%;
+    background-color: #fff;
+    z-index: 20;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+.container {
+    display: flex;
+    background-color: inherit;
+}
+.hidden {
+    display: none;
+}

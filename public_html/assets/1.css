@@ -1,0 +1,11 @@
+html {
+    font-size: 100%;
+}
+body {
+    color: rgba(62, 64, 73, 0.5);
+    margin: 0px;
+    background-color: #fff;
+    min-height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+}
