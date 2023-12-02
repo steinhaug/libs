@@ -24,8 +24,15 @@ if ($mysqli->character_set_name() != 'utf8') {
 }
 
 $GLOBALS['Content-Encoding'] = 'gzip';
-$swlib = new steinhaug_libs_v1;
-$swlib->start_ob(false, true, $GLOBALS['Content-Encoding']);
+
+if(_GET('mode')=='a'){
+    $swlib = new steinhaug_libs;
+    $swlib->start();
+} else {
+    $swlib = new steinhaug_libs;
+    $swlib->start_ob(false, true, $GLOBALS['Content-Encoding']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="no">
@@ -34,12 +41,12 @@ $swlib->start_ob(false, true, $GLOBALS['Content-Encoding']);
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>steinhaug_libs_v1 class</title>
+    <title>steinhaug_libs_v2 class</title>
 
     <link rel="icon" href="images/favicon.png" />
   </head>
   <body>
-    <h1>steinhaug_libs_v1</h1>
+    <h1>Hello steinhaug_libs <?=time()?>!</h1>
     <p>Run the /public_html for tests and usage..</p>
 
     <p>
@@ -53,5 +60,9 @@ $swlib->start_ob(false, true, $GLOBALS['Content-Encoding']);
   </body>
 </html>
 <?php
-$swlib->end_ob('text/html');
+if(_GET('mode')=='a'){
+    $swlib->end();
+} else {
+    $swlib->end_ob('text/html');
+}
 ?>

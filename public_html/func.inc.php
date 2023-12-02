@@ -15,6 +15,14 @@ if(!function_exists('getallheaders')){
     }
 }
 
+function _GET($key){
+
+    if(isset($_GET[$key]))
+        return $_GET[$key];
+
+    return '';
+}
+
 /**
  * Seperate a block of code by sub blocks. Example, removing all <script>...<script> tags from HTML kode
  * Original sollution: https://stackoverflow.com/questions/27078259/get-string-between-find-all-occurrences-php
