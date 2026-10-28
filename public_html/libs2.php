@@ -1,27 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+// Load environment
 require 'func.inc.php';
-
-// Autoload files using the Composer autoloader.
-require_once '../vendor/autoload.php';
-
-// Initialize the DB connection
-require '../mysqli_credentials.inc';
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-$mysqli = mysqli_connect($host, $us, $password, $store);
-if (mysqli_connect_errno()) {
-    echo 'Problemer med databasen, sjekk konfigurasjon!';
-    exit();
-}
-if ($mysqli->character_set_name() != 'utf8') {
-    if (!$mysqli->set_charset("utf8")) {
-        printf("Error loading character set utf8: %s\n", $mysqli->error);
-        exit();
-    }
-}
 
 $GLOBALS['Content-Encoding'] = 'gzip';
 
@@ -65,4 +44,3 @@ if(_GET('mode')=='a'){
 } else {
     $swlib->end_ob('text/html');
 }
-?>

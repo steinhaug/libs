@@ -1,6 +1,30 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+define('PROJECT_ROOT', dirname(__FILE__, 2));
+
+// Autoload files using the Composer autoloader.
+require_once PROJECT_ROOT . '/vendor/autoload.php';
+
+// Initialize the DB connection
+require PROJECT_ROOT . '/mysqli_credentials.inc';
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+$mysqli = mysqli_connect($host, $us, $password, $store);
+if (mysqli_connect_errno()) {
+    echo 'Problemer med databasen, sjekk konfigurasjon!';
+    exit();
+}
+if ($mysqli->character_set_name() != 'utf8') {
+    if (!$mysqli->set_charset("utf8")) {
+        printf("Error loading character set utf8: %s\n", $mysqli->error);
+        exit();
+    }
+}
 
 
+// helper functions
 if(!function_exists('ob_flush')){ function ob_flush() { return true; }} // Patch for DG 80.64.202.13 server
 if(!function_exists('same_length')){ function same_length($a,$b,$s=' '){ if(strlen((string) $a) == strlen((string) $b)) return array($a,$b); if(strlen((string) $a) > strlen((string) $b)){ while(strlen((string) $a) > strlen((string) $b)){ $b .= $s; } return array($a,$b); } else { while(strlen((string) $a) < strlen((string) $b)){ $a .= $s; } return array($a,$b);} return array($a,$b);}}
 if(!function_exists('getallheaders')){

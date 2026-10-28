@@ -1,0 +1,6 @@
+#gdpr-contact-form input[type="checkbox"]+label::before {
+    display: none;
+}
+#gdpr-contact-form input[type="checkbox"]:checked+label::before {
+    content: '';
+}
